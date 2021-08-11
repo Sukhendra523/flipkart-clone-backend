@@ -20,7 +20,7 @@ exports.userMiddleware = (req, res, next) => {
 
 exports.adminMiddleware = (req, res, next) => {
   if (req.user.role !== "admin") {
-    return res.status(400).json({ message: " Admin Acces denied" });
+    return res.status(400).json({ message: "Admin Acces denied" });
   }
   next();
 };
