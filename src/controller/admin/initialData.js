@@ -18,7 +18,9 @@ const createCategories = (categories, parentId = null) => {
     categoryList.push({
       _id: category._id,
       name: category.name,
+      parentId:category.parentId,
       slug: category.slug,
+      type:category.type,
       children: createCategories(categories, category._id),
     });
   }

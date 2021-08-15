@@ -4,7 +4,7 @@ const path = require("path");
 const shortid = require("shortid");
 
 const { requireSignin, adminMiddleware } = require("../common-middleware");
-const { addCategory, getCategories } = require("../controller/category");
+const { addCategory, getCategories, updateCategories, deleteCategories } = require("../controller/category");
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -26,5 +26,21 @@ router.post(
   addCategory
 );
 router.get("/category/getCategories", getCategories);
+
+router.post(
+  "/category/update",
+  requireSignin,
+  adminMiddleware,
+  upload.array("categoryImage"),
+  updateCategories
+);
+
+
+router.post(
+  "/category/delete",
+  requireSignin,
+  adminMiddleware,
+  deleteCategories
+);
 
 module.exports = router;
