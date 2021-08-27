@@ -1,5 +1,7 @@
 const Category = require("../models/category");
 const slugify = require("slugify");
+const shortid = require("shortid");
+
 
 const createCategories = (categories, parentId = null) => {
   const categoryList = [];
@@ -19,6 +21,7 @@ const createCategories = (categories, parentId = null) => {
       _id: category._id,
       name: category.name,
       slug: category.slug,
+      type:category.type,
       children: createCategories(categories, category._id),
     });
   }
@@ -28,7 +31,8 @@ const createCategories = (categories, parentId = null) => {
 exports.addCategory = (req, res) => {
   const categoryObj = {
     name: req.body.name,
-    slug: slugify(req.body.name),
+    slug:`${slugify(req.body.name)}-${shortid.generate()}`,
+    
   };
   if (req.file) {
     console.log(req.file);
